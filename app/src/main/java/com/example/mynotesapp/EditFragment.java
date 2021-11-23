@@ -9,6 +9,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
+import android.speech.tts.TextToSpeech;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +26,7 @@ import com.example.mynotesapp.model.Note;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 
 public class EditFragment extends Fragment {
@@ -37,7 +39,9 @@ public class EditFragment extends Fragment {
     private List<Note> notesList = new ArrayList<>();
     private DatabaseHelper db;
     EditText inputNote;
+    Button speak;
     String s1;
+    private TextToSpeech textToSpeech;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,6 +59,7 @@ public class EditFragment extends Fragment {
         TextView tv = view.findViewById(R.id.dialog_title1);
         inputNote = view.findViewById(R.id.note1);
         savebtn= view.findViewById(R.id.buttonsave);
+        speak=view.findViewById(R.id.buttonspeak);
         db = new DatabaseHelper(getActivity());
 
         notesList.addAll(db.getAllNotes());
@@ -64,6 +69,30 @@ public class EditFragment extends Fragment {
         System.out.println("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
 
 
+        textToSpeech = new TextToSpeech(getContext(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int i) {
+
+                if(i!=TextToSpeech.ERROR){
+                    textToSpeech.setLanguage(Locale.UK);
+                }
+            }
+        });
+
+        speak.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String text = inputNote.getText().toString();
+                if (text!=null && text.length()>0) {
+
+                    textToSpeech.speak(text, TextToSpeech.QUEUE_FLUSH,null);
+
+                }else{
+                    Toast.makeText(getContext(),"Please enter text",Toast.LENGTH_LONG).show();
+
+                }
+            }
+        });
         if(bundle!=null){
 
             paone= (getArguments().getBoolean("one"));
@@ -108,7 +137,6 @@ public class EditFragment extends Fragment {
             notesList.add(0, n);
 
             // refreshing the list
-           // mAdapter.notifyDataSetChanged();
 
         }
     }
@@ -124,7 +152,6 @@ public class EditFragment extends Fragment {
 
         // refreshing the list
         notesList.set(position, n);
-//        mAdapter.notifyItemChanged(position);
 
 
     }
@@ -133,11 +160,7 @@ public class EditFragment extends Fragment {
     public void showNoteDialog(final boolean shouldUpdate, final String note, final int position) {
 
         if (shouldUpdate ==true && note != null) {
-            // update note by it's id
-            System.out.println(inputNote.getText().toString());
-            System.out.println("inputNote");
-            System.out.println(position);
-            System.out.println("inp[fkbdbksdbNote");
+
 
             if(inputNote.getText().toString().isEmpty()){
                 Toast.makeText(getContext(),"Please enter text",Toast.LENGTH_LONG).show();
@@ -153,8 +176,7 @@ public class EditFragment extends Fragment {
 
         } else {
             // create new note
-            System.out.println(inputNote.getText().toString());
-            System.out.println("inputNote.getText().toString()");
+
             if(inputNote.getText().toString().isEmpty()){
                 Toast.makeText(getContext(),"Please enter text",Toast.LENGTH_LONG).show();
             }else{

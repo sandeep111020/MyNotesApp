@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import android.speech.tts.TextToSpeech;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,21 +32,23 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
-public class NotesFragment extends Fragment {
+public class NotesFragment extends Fragment  {
 
 
     RecyclerView recyclerView;
     private NotesAdapter mAdapter;
     private DatabaseHelper db;
     LinearLayout fragm;
+
+
     private List<Note> notesList = new ArrayList<>();
     private FloatingActionButton fab;
-    private StaggeredGridLayoutManager staggeredGridLayoutManager;
     String s1;
 
+
     public NotesFragment() {
-        // Required empty public constructor
     }
 
 
@@ -66,20 +69,11 @@ public class NotesFragment extends Fragment {
         SharedPreferences sh = getActivity().getSharedPreferences("MySharedPref", Context.MODE_PRIVATE);
 
        s1= sh.getString("name", "");
-       // recyclerView.setHasFixedSize(true);
-        /*recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        //initData();
-
-        recyclerView.setAdapter(new ItemAdapter(initData(),getContext()));*/
-
-        mAdapter = new NotesAdapter(getContext(), notesList);
+      mAdapter = new NotesAdapter(getContext(), notesList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setHasFixedSize(true);
-        //staggeredGridLayoutManager=new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(mLayoutManager);
 
-       // mrecyclerview.setLayoutManager(staggeredGridLayoutManager);
 
         for (int i=0;i<notesList.size();i++){
             if (!notesList.get(i).getNote().contains(s1)){
@@ -122,7 +116,6 @@ public class NotesFragment extends Fragment {
             }
         }));
 
-        
 
         return view;
     }
@@ -162,12 +155,22 @@ public class NotesFragment extends Fragment {
 
 
 
+
                             }
                         });
         AlertDialog alertDialog = builder.create();
 
         alertDialog.show();
     }
+
+
+
+
+
+
+
+
+
     private void showActionsDialog(final int position) {
 
         CharSequence colors[] = new CharSequence[]{"Edit", "Delete"};
@@ -175,6 +178,7 @@ public class NotesFragment extends Fragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle("View");
         builder.setMessage(notesList.get(position).getNote().replaceAll(s1,""));
+
         builder
                 .setPositiveButton(
                         "EDIT",
@@ -221,18 +225,7 @@ public class NotesFragment extends Fragment {
                                 deletenotes(position);
                             }
                         });
-        builder.setItems(colors, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                if (which == 0) {
 
-
-
-                } else {
-
-                }
-            }
-        });
         builder.show();
     }
     private void deleteNote(int position) {
@@ -245,7 +238,7 @@ public class NotesFragment extends Fragment {
         Toast.makeText(getContext(),"Notes Deleted Successfully",Toast.LENGTH_LONG).show();
 
 
-        // toggleEmptyNotes();
+
     }
 
 }

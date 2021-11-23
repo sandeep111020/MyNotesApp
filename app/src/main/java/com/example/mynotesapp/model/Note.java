@@ -1,8 +1,6 @@
 package com.example.mynotesapp.model;
 
-/**
- * Created by ravi on 20/02/18.
- */
+
 
 public class Note {
     public static final String TABLE_NAME = "notes";
