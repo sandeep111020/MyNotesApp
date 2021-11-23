@@ -2,6 +2,7 @@ package com.example.mynotesapp;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -19,9 +20,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.mynotesapp.model.Note;
 import com.example.mynotesapp.utils.RecyclerTouchListener;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -76,7 +81,14 @@ public class NotesFragment extends Fragment {
 
        // mrecyclerview.setLayoutManager(staggeredGridLayoutManager);
 
+        for (int i=0;i<notesList.size();i++){
+            if (!notesList.get(i).getNote().contains(s1)){
+                removeother(i);
+            }
+        }
         recyclerView.setAdapter(mAdapter);
+
+
 
 
         fab.setOnClickListener(new View.OnClickListener() {
@@ -110,7 +122,51 @@ public class NotesFragment extends Fragment {
             }
         }));
 
+        
+
         return view;
+    }
+
+    public void removeother(int position){
+        notesList.remove(position);
+        mAdapter.notifyItemRemoved(position);
+    }
+    public void deletenotes(int position){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("Alert");
+        builder.setMessage("Are you sure do you want to delete the note");
+        builder
+                .setPositiveButton(
+                        "YES",
+                        new DialogInterface
+                                .OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog,
+                                                int which)
+                            {
+
+                                deleteNote(position);
+                            }
+                        });
+        builder
+                .setNegativeButton(
+                        "NO",
+                        new DialogInterface
+                                .OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog,
+                                                int which)
+                            {
+
+
+
+                            }
+                        });
+        AlertDialog alertDialog = builder.create();
+
+        alertDialog.show();
     }
     private void showActionsDialog(final int position) {
 
@@ -162,7 +218,7 @@ public class NotesFragment extends Fragment {
 
                                 // If user click no
                                 // then dialog box is canceled.
-                                deleteNote(position);
+                                deletenotes(position);
                             }
                         });
         builder.setItems(colors, new DialogInterface.OnClickListener() {
@@ -186,8 +242,10 @@ public class NotesFragment extends Fragment {
         // removing the note from the list
         notesList.remove(position);
         mAdapter.notifyItemRemoved(position);
+        Toast.makeText(getContext(),"Notes Deleted Successfully",Toast.LENGTH_LONG).show();
 
-       // toggleEmptyNotes();
+
+        // toggleEmptyNotes();
     }
 
 }

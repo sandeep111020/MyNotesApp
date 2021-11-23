@@ -7,7 +7,9 @@ import android.os.Build;
 import android.os.Bundle;
 
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -71,17 +73,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         Fragment fragment = fm.findFragmentById(R.id.fragment2);
 
         username=findViewById(R.id.username);
-        username.setOnClickListener(new View.OnClickListener() {
+        img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                GoogleSignInOptions gso = new GoogleSignInOptions.
-                        Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).
-                        build();
+                exitapp();
 
-                GoogleSignInClient googleSignInClient= GoogleSignIn.getClient(MainActivity.this,gso);
-                googleSignInClient.signOut();
-                Intent i = new Intent(MainActivity.this,MainActivity.class);
-                startActivity(i);
             }
         });
 
@@ -187,17 +183,68 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             //userEmail.setText(account.getEmail());
            // userId.setText(account.getId());
             try{
-                Glide.with(this).load(account.getPhotoUrl()).into(img);
+                if(account.getPhotoUrl()==null){
+                    img.setBackgroundResource(R.drawable.ic_baseline_account_circle_24);
+                    Toast.makeText(getApplicationContext(),"image not found",Toast.LENGTH_LONG).show();
+
+                }else {
+                    Glide.with(MainActivity.this).load(account.getPhotoUrl()).into(img);
+
+                }
+
 
             }catch (NullPointerException e){
-                Toast.makeText(getApplicationContext(),"image not found",Toast.LENGTH_LONG).show();
             }
 
         }else{
-            /*gotoMainActivity();*/
+
         }
     }
 
+    public void exitapp(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Alert");
+        builder.setMessage("Are you sure do you want to logout?");
+        builder
+                .setPositiveButton(
+                        "LOGOUT",
+                        new DialogInterface
+                                .OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog,
+                                                int which)
+                            {
+                                GoogleSignInOptions gso = new GoogleSignInOptions.
+                                        Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).
+                                        build();
+
+                                GoogleSignInClient googleSignInClient= GoogleSignIn.getClient(MainActivity.this,gso);
+                                googleSignInClient.signOut();
+                                Intent i = new Intent(MainActivity.this,MainActivity.class);
+                                startActivity(i);
+
+                            }
+                        });
+        builder
+                .setNegativeButton(
+                        "CANCEL",
+                        new DialogInterface
+                                .OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog,
+                                                int which)
+                            {
+
+
+
+                            }
+                        });
+        AlertDialog alertDialog = builder.create();
+
+        alertDialog.show();
+    }
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 

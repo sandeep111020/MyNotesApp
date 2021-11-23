@@ -93,6 +93,8 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.MyViewHolder
             holder.timestamp.setText("Created on:  "+formatDate(note.getTimestamp()));
         }else {
 
+           // notesList.remove(position);
+
             holder.itemView.setVisibility(View.GONE);
 
 

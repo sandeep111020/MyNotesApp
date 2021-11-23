@@ -129,6 +129,7 @@ public class EditFragment extends Fragment {
 
     }
 
+
     public void showNoteDialog(final boolean shouldUpdate, final String note, final int position) {
 
         if (shouldUpdate ==true && note != null) {
@@ -143,6 +144,8 @@ public class EditFragment extends Fragment {
             }else{
 
                 updateNote(inputNote.getText().toString()+""+s1, position);
+                Toast.makeText(getContext(),"Notes Updated Successfully",Toast.LENGTH_LONG).show();
+
                 Intent i = new Intent(getContext(),MainActivity.class);
                 startActivity(i);
 
@@ -156,6 +159,8 @@ public class EditFragment extends Fragment {
                 Toast.makeText(getContext(),"Please enter text",Toast.LENGTH_LONG).show();
             }else{
                 createNote(inputNote.getText().toString()+""+s1);
+                Toast.makeText(getContext(),"Notes Created Successfully",Toast.LENGTH_LONG).show();
+
                 Intent i = new Intent(getContext(),MainActivity.class);
                 startActivity(i);
 
