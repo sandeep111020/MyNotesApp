@@ -18,7 +18,6 @@
                     android:layout_height="50dp"
                     android:layout_marginRight="10dp"
 
-
                     android:layout_gravity="center_horizontal"
                     android:id="@+id/imgview"/>
                 <TextView

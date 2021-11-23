@@ -21,17 +21,21 @@
 
      >
 
+
+
         <TextView android:id="@+id/dialog_title1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/dimen_10"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="10dp"
             android:fontFamily="sans-serif-medium"
             android:lineSpacingExtra="8sp"
             android:text="@string/lbl_new_note_title"
             android:layout_gravity="center_horizontal"
-            android:textColor="#E43939"
+            android:textColor="#000000"
             android:textSize="22dp"
             android:textStyle="normal" />
+
 
         <EditText
             android:id="@+id/note1"
@@ -43,11 +47,11 @@
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:minHeight="150dp"
-            android:hint="@string/hint_enter_note"
+            android:hint="  Enter your note"
             android:inputType="textCapSentences|textMultiLine"
             android:minLines="4"
 
-            android:textColorHint="#E43939"
+            android:textColorHint="#000000"
             android:textSize="@dimen/input_new_note" />
 
         <Button

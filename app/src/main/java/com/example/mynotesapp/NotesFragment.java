@@ -57,6 +57,7 @@ public class NotesFragment extends Fragment {
         db = new DatabaseHelper(getContext());
 
         notesList.addAll(db.getAllNotes());
+        System.out.println(notesList);
         SharedPreferences sh = getActivity().getSharedPreferences("MySharedPref", Context.MODE_PRIVATE);
 
        s1= sh.getString("name", "");

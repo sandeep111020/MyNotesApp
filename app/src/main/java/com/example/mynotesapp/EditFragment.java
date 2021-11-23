@@ -137,20 +137,34 @@ public class EditFragment extends Fragment {
             System.out.println("inputNote");
             System.out.println(position);
             System.out.println("inp[fkbdbksdbNote");
-            updateNote(inputNote.getText().toString()+" "+s1, position);
 
+            if(inputNote.getText().toString().isEmpty()){
+                Toast.makeText(getContext(),"Please enter text",Toast.LENGTH_LONG).show();
+            }else{
+
+                updateNote(inputNote.getText().toString()+""+s1, position);
+                Intent i = new Intent(getContext(),MainActivity.class);
+                startActivity(i);
+
+            }
 
         } else {
             // create new note
             System.out.println(inputNote.getText().toString());
             System.out.println("inputNote.getText().toString()");
+            if(inputNote.getText().toString().isEmpty()){
+                Toast.makeText(getContext(),"Please enter text",Toast.LENGTH_LONG).show();
+            }else{
+                createNote(inputNote.getText().toString()+""+s1);
+                Intent i = new Intent(getContext(),MainActivity.class);
+                startActivity(i);
 
-            createNote(inputNote.getText().toString()+" "+s1);
+            }
+
         }
 
 
-        Intent i = new Intent(getContext(),MainActivity.class);
-        startActivity(i);
+
 
     }
 

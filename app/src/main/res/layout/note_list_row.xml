@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:clickable="true"
     android:foreground="?attr/selectableItemBackground"
-    android:paddingBottom="@dimen/dimen_10"
+
     android:paddingLeft="24dp"
     android:id="@+id/linlayt"
     android:paddingRight="24dp"

@@ -33,6 +33,7 @@
             android:layout_height="wrap_content"
             android:text="My Notes"
             android:textSize="24dp"
+            android:layout_marginTop="15dp"
             android:textColor="@color/black"
             android:textStyle="bold"
             android:layout_gravity="center_horizontal"/>

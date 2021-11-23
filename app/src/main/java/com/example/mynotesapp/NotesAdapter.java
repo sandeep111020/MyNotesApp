@@ -74,7 +74,15 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.MyViewHolder
 
         Note note = notesList.get(position);
         if(note.getNote().contains(s1)){
-            holder.note.setText(note.getNote().substring(0,3)+"...");
+
+            String t= note.getNote().replaceAll(s1,"");
+
+            if(t.length()>3){
+                holder.note.setText(t.substring(0,3)+"...");
+            }else{
+                holder.note.setText(t);
+            }
+
             int colourcode=getRandomColor();
 
            // holder.iconimage.setText(note.getNote().substring(0,1));
