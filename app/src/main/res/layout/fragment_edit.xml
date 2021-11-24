@@ -59,12 +59,14 @@
             android:layout_marginTop="30dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
             android:minHeight="150dp"
-            android:hint="  Enter your note"
+            android:hint="Enter your note"
             android:inputType="textCapSentences|textMultiLine"
             android:minLines="4"
-
-            android:textColorHint="#000000"
+            android:textColor="#000000"
+            android:textColorHint="#676262"
             android:textSize="@dimen/input_new_note" />
 
         <TextView
@@ -97,7 +99,7 @@
                 android:id="@+id/buttonspeak"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginRight="30dp"
-
+                android:textColor="#ffffff"
                 android:background="@drawable/cardcorner"
                 android:text="LISTEN"/>
             <Button
@@ -106,6 +108,7 @@
                 android:id="@+id/buttonsave"
                 android:layout_marginLeft="30dp"
                 android:layout_gravity="center_horizontal"
+                android:textColor="#ffffff"
 
                 android:background="@drawable/cardcorner"
                 android:text="SAVE"/>
