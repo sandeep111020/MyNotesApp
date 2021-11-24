@@ -9,6 +9,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
@@ -78,8 +79,9 @@ public class EditFragment extends Fragment {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getContext(),MainActivity.class);
-                startActivity(i);
+                FragmentTransaction fr = getFragmentManager().beginTransaction();
+                fr.replace(R.id.recycler,new NotesFragment());
+                fr.commit();
             }
         });
         System.out.println(notesList);
@@ -223,8 +225,9 @@ public class EditFragment extends Fragment {
                 updateNote(inputNote.getText().toString()+""+s1, position);
                 Toast.makeText(getContext(),"Notes Updated Successfully",Toast.LENGTH_LONG).show();
 
-                Intent i = new Intent(getContext(),MainActivity.class);
-                startActivity(i);
+                FragmentTransaction fr = getFragmentManager().beginTransaction();
+                fr.replace(R.id.recycler,new NotesFragment());
+                fr.commit();
 
             }
 
@@ -237,8 +240,9 @@ public class EditFragment extends Fragment {
                 createNote(inputNote.getText().toString()+""+s1);
                 Toast.makeText(getContext(),"Notes Created Successfully",Toast.LENGTH_LONG).show();
 
-                Intent i = new Intent(getContext(),MainActivity.class);
-                startActivity(i);
+                FragmentTransaction fr = getFragmentManager().beginTransaction();
+                fr.replace(R.id.recycler,new NotesFragment());
+                fr.commit();
 
             }
 
