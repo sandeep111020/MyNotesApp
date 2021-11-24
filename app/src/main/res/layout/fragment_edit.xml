@@ -37,7 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:fontFamily="sans-serif-medium"
+                android:fontFamily="@font/montserrat"
                 android:lineSpacingExtra="8sp"
                 android:layout_marginLeft="50dp"
                 android:text="@string/lbl_new_note_title"
@@ -72,6 +72,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:textSize="20dp"
+            android:fontFamily="@font/montserrat"
             android:layout_marginTop="10dp"
             android:text="Speech to Text"/>
 

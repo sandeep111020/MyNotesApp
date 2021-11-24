@@ -37,6 +37,7 @@
             android:layout_marginTop="15dp"
             android:textColor="@color/black"
             android:textStyle="bold"
+            android:fontFamily="@font/montserrat"
             android:layout_gravity="center_horizontal"/>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"

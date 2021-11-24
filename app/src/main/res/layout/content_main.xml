@@ -32,8 +32,9 @@
                             android:layout_marginLeft="10dp"
                             android:textSize="24dp"
                             android:textColor="#ffffff"
+                            android:id="@+id/hitext"
                             android:fontFamily="@font/julee"
-                            android:text="Hi"/>
+                           />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"

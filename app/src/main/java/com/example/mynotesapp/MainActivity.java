@@ -49,7 +49,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     private List<Note> notesList = new ArrayList<>();
     private CoordinatorLayout coordinatorLayout;
    // private RecyclerView recyclerView;
-    private TextView username;
+    private TextView username,hitxt;
+
 
     private DatabaseHelper db;
     private GoogleApiClient googleApiClient;
@@ -65,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         fr1=findViewById(R.id.framelayout);
         fr2=findViewById(R.id.fragment2);
         fr3=findViewById(R.id.recycler);
+        hitxt=findViewById(R.id.hitext);
         img=findViewById(R.id.imgview);
 
 
@@ -170,6 +172,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             GoogleSignInAccount account=result.getSignInAccount();
             username.setText(account.getDisplayName());
             // Storing data into SharedPreferences
+            hitxt.setText("Hi");
             SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref",MODE_PRIVATE);
 
 // Creating an Editor object to edit(write to the file)
