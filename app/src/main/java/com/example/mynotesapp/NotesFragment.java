@@ -226,6 +226,27 @@ public class NotesFragment extends Fragment  {
                             }
                         });
 
+        builder
+                .setNeutralButton(
+                        "SHARE",
+                        new DialogInterface
+                                .OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog,
+                                                int which)
+                            {
+
+                                Intent intentShare = new Intent(Intent.ACTION_SEND);
+                                intentShare.setType("text/plain");
+                                intentShare.putExtra(Intent.EXTRA_SUBJECT,"My Subject Here ... ");
+                                intentShare.putExtra(Intent.EXTRA_TEXT,notesList.get(position).getNote().replaceAll(s1,""));
+
+                                startActivity(Intent.createChooser(intentShare, "Shared the text ..."));
+                            }
+                        });
+
+
         builder.show();
     }
     private void deleteNote(int position) {

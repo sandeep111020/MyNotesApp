@@ -6,9 +6,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
+import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -20,6 +22,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import static android.app.Activity.RESULT_OK;
+import static android.content.Context.STORAGE_SERVICE;
 import static com.example.mynotesapp.MainActivity.mAdapter;
 
 import com.example.mynotesapp.model.Note;
@@ -27,6 +31,8 @@ import com.example.mynotesapp.model.Note;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class EditFragment extends Fragment {
@@ -41,6 +47,8 @@ public class EditFragment extends Fragment {
     EditText inputNote;
     Button speak;
     String s1;
+    CircleImageView mike;
+    TextView back;
     private TextToSpeech textToSpeech;
 
     @Override
@@ -59,15 +67,31 @@ public class EditFragment extends Fragment {
         TextView tv = view.findViewById(R.id.dialog_title1);
         inputNote = view.findViewById(R.id.note1);
         savebtn= view.findViewById(R.id.buttonsave);
+        mike = view.findViewById(R.id.mike);
+
         speak=view.findViewById(R.id.buttonspeak);
         db = new DatabaseHelper(getActivity());
 
+
         notesList.addAll(db.getAllNotes());
+        back= view.findViewById(R.id.backbutton);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getContext(),MainActivity.class);
+                startActivity(i);
+            }
+        });
         System.out.println(notesList);
         Bundle bundle = this.getArguments();
         System.out.println(bundle);
-        System.out.println("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
 
+        mike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                recordSpeech();
+            }
+        });
 
         textToSpeech = new TextToSpeech(getContext(), new TextToSpeech.OnInitListener() {
             @Override
@@ -120,6 +144,36 @@ public class EditFragment extends Fragment {
             }
         });
         return view;
+    }
+    private void recordSpeech() {
+
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, "en-US");
+        try {
+
+            startActivityForResult(intent, 1);
+        } catch (Exception e) {
+            Toast.makeText(getContext(), "Your device does not support Speech recognizer", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK && data != null) {
+                ArrayList<String> text = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                if(inputNote.getText().toString().isEmpty()){
+                    inputNote.setText(text.get(0));
+
+                }else{
+                    String te=inputNote.getText().toString();
+                    inputNote.setText(te+" "+text.get(0));
+                }
+            }
+        }
+
     }
     private void createNote(String note) {
         // inserting note in db and getting

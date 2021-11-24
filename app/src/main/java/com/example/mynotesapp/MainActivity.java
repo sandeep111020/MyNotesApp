@@ -168,7 +168,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     private void handleSignInResult(GoogleSignInResult result){
         if(result.isSuccess()){
             GoogleSignInAccount account=result.getSignInAccount();
-            username.setText("Welcome "+account.getDisplayName());
+            username.setText(account.getDisplayName());
             // Storing data into SharedPreferences
             SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref",MODE_PRIVATE);
 

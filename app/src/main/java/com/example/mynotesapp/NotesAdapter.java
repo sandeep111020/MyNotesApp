@@ -77,8 +77,17 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.MyViewHolder
 
             String t= note.getNote().replaceAll(s1,"");
 
-            if(t.length()>3){
-                holder.note.setText(t.substring(0,3)+"...");
+            int i = t.indexOf(' ');
+            if(t.length()>7 ){
+                if(i>0){
+                    holder.note.setText(t.substring(0,i)+"...");
+                }else if(t.contains("\n")){
+                    int j = t.indexOf('\n');
+                    holder.note.setText(t.substring(0,j)+"...");
+                }
+
+
+
             }else{
                 holder.note.setText(t);
             }
